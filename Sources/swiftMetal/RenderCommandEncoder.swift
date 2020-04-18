@@ -1,0 +1,2 @@
+public protocol RenderCommandEncoder: CommandEncoder {
+}
