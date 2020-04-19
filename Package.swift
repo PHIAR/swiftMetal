@@ -46,6 +46,12 @@ products.append(.library(name: "Metal",
     "Metal",
 ]))
 
+products.append(.library(name: "swiftMetalDispatch",
+                         type: .dynamic,
+                         targets: [
+    "swiftMetalDispatch",
+]))
+
 let package = Package(name: "swiftMetal",
                       platforms: platforms,
                       products: products,
