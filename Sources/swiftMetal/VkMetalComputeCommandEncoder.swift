@@ -10,12 +10,12 @@ internal final class VkMetalComputeCommandEncoder: VkMetalCommandEncoder,
                                 threadsPerThreadgroup: Size) {
     }
 
-    public func setBuffer(_ buffer: Buffer,
+    public func setBuffer(_ buffer: Buffer?,
                           offset: Int,
                           index: Int) {
     }
 
-    public func setBuffers(_ buffers: [Buffer],
+    public func setBuffers(_ buffers: [Buffer?],
                            offsets: [Int],
                            range: Range <Int>) {
     }
@@ -29,11 +29,11 @@ internal final class VkMetalComputeCommandEncoder: VkMetalCommandEncoder,
         self.vkComputePipelineState = state as? VkMetalComputePipelineState
     }
 
-    public func setTexture(_ texture: Texture,
+    public func setTexture(_ texture: Texture?,
                            index: Int) {
     }
 
-    public func setTextures(_ textures: [Texture],
+    public func setTextures(_ textures: [Texture?],
                             range: Range <Int>) {
         precondition(textures.count == range.count)
 

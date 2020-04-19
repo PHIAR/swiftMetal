@@ -5,12 +5,12 @@ public protocol ComputeCommandEncoder: CommandEncoder {
     func dispatchThreads(_ threadsPerGrid: Size,
                          threadsPerThreadgroup: Size)
 
-    func setBuffer(_ buffer: Buffer,
+    func setBuffer(_ buffer: Buffer?,
                    offset: Int,
                    index: Int)
 
 
-    func setBuffers(_ buffers: [Buffer],
+    func setBuffers(_ buffers: [Buffer?],
                     offsets: [Int],
                     range: Range <Int>)
 
@@ -20,9 +20,9 @@ public protocol ComputeCommandEncoder: CommandEncoder {
 
     func setComputePipelineState(_ state: ComputePipelineState)
 
-    func setTexture(_ texture: Texture,
+    func setTexture(_ texture: Texture?,
                     index: Int)
 
-    func setTextures(_ textures: [Texture],
+    func setTextures(_ textures: [Texture?],
                      range: Range <Int>)
 }
