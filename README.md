@@ -2,6 +2,8 @@
 
 A Metal API implementation in Swift on top of the Vulkan API.
 
+Note this is a proof of concept implementation and is not complete.
+
 ## Building and Verification
 
 swiftMetal uses the Swift Package Manager (swiftpm) for building.
