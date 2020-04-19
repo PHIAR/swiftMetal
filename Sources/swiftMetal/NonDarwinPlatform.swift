@@ -6,9 +6,23 @@ public typealias __DispatchData = DispatchData
 public typealias CFTimeInterval = Double
 #endif
 
+public enum CaptureDestination {
+    case developerTools
+    case gpuTraceDocument
+}
+
+public enum CullMode {
+    case none
+}
+
 public enum CPUCacheMode {
     case defaultCache
     case writeCombined
+}
+
+public enum DepthClipMode {
+    case clamp
+    case clip
 }
 
 public enum DispatchType {
@@ -48,6 +62,21 @@ public enum FeatureSet: UInt {
     case macOS_ReadWriteTextureTier2 = 10002
 }
 
+public enum HazardTrackingMode {
+    case `default`
+    case tracked
+    case untracked
+}
+
+public enum HeapType {
+    case automatic
+}
+
+public enum IndexType {
+    case uint16
+    case uint32
+}
+
 public enum LanguageVersion {
     case defaultVersion
 
@@ -59,17 +88,33 @@ public enum LanguageVersion {
 
     case glslVersion_450
 
-    case version_1_0
-    case version_1_1
-    case version_1_2
-    case version_2_0
-    case version_2_1
+    case version1_0
+    case version1_1
+    case version1_2
+    case version2_0
+    case version2_1
+    case version2_2
+}
+
+public enum LoadAction {
+    case clear
+    case dontCare
+    case load
 }
 
 public enum PixelFormat {
     case unknown
+    case bgr10_xr
     case bgra8Unorm
     case rgba8Unorm
+}
+
+public enum PrimitiveType {
+    case line
+    case lineStrip
+    case point
+    case triangle
+    case triangleStrip
 }
 
 public enum PurgeableState: UInt {
@@ -110,6 +155,14 @@ public enum StorageMode: Int {
     case shared = 3
 }
 
+public enum StoreAction {
+    case dontCare
+    case multisampleResolve
+    case store
+    case storeAndMultisampleResolve
+    case unknown
+}
+
 public enum TextureType {
     case unknown
     case type1D
@@ -118,6 +171,16 @@ public enum TextureType {
     case type2DArray
     case type3D
     case typeCube
+}
+
+public enum TriangleFillMode {
+    case fill
+    case lines
+}
+
+public enum Winding {
+    case clockwise
+    case counterClockwise
 }
 
 public protocol Drawable {
@@ -151,16 +214,6 @@ public struct Region {
     }
 }
 
-public struct RenderPassDescriptor {
-    public init() {
-    }
-}
-
-public struct RenderPipelineDescriptor {
-    public init() {
-    }
-}
-
 public struct ResourceOptions: OptionSet {
     public var rawValue: UInt
 
@@ -175,6 +228,9 @@ public struct ResourceOptions: OptionSet {
     public static var storageModePrivate = ResourceOptions(rawValue: UInt(StorageMode.`private`.rawValue))
 
     public static var storageModeShared = ResourceOptions(rawValue: UInt(StorageMode.shared.rawValue))
+}
+
+public struct ScissorRect {
 }
 
 public struct Size {
@@ -207,6 +263,38 @@ public struct TextureUsage: OptionSet {
     }
 }
 
+public struct Viewport {
+    public var originX: Double
+    public var originY: Double
+    public var width: Double
+    public var height: Double
+    public var znear: Double
+    public var zfar: Double
+
+    public init(originX: Double,
+                originY: Double,
+                width: Double,
+                height: Double,
+                znear: Double,
+                zfar: Double) {
+        self.originX = originX
+        self.originY = originY
+        self.width = width
+        self.height = height
+        self.znear = znear
+        self.zfar = zfar
+    }
+}
+
+public final class CaptureDescriptor {
+    public var captureObject: AnyObject? = nil
+    public var destination: CaptureDestination = .developerTools
+    public var outputURL: URL? = nil
+
+    public init() {
+    }
+}
+
 public final class CaptureManager {
     private static let sharedInstance = CaptureManager()
 
@@ -232,6 +320,9 @@ public final class CaptureManager {
     }
 
     public func startCapture(scope: CaptureScope) {
+    }
+
+    public func startCapture(with descriptor: CaptureDescriptor) throws {
     }
 
     public func stopCapture() {
@@ -265,6 +356,7 @@ public final class HeapDescriptor {
     private var _storageMode: StorageMode = .shared
     private var _cpuCacheMode: CPUCacheMode = .defaultCache
     private var _size = 0
+    private var _hazardTrackingMode: HazardTrackingMode = .default
 
     public var storageMode: StorageMode {
         get {
@@ -294,6 +386,98 @@ public final class HeapDescriptor {
         set {
             self._size = newValue
         }
+    }
+
+    public var hazardTrackingMode: HazardTrackingMode {
+        get {
+            return self._hazardTrackingMode
+        }
+
+        set {
+            self._hazardTrackingMode = newValue
+        }
+    }
+
+    public init() {
+    }
+}
+
+public class RenderPassColorAttachmentDescriptor {
+    public var texture: Texture? = nil
+    public var loadAction: LoadAction = .dontCare
+    public var storeAction: StoreAction = .dontCare
+}
+
+public class RenderPassColorAttachmentDescriptorArray {
+    private var attachments: [RenderPassColorAttachmentDescriptor] = []
+
+    private func resizeAttachments(size: Int) {
+        if size >= self.attachments.count {
+            self.attachments += Array(repeating: RenderPassColorAttachmentDescriptor(),
+                                      count: 1 + size - self.attachments.count)
+        }
+    }
+
+    public subscript(index: Int) ->  RenderPassColorAttachmentDescriptor! {
+        get {
+            self.resizeAttachments(size: index)
+            return self.attachments[index]
+        }
+
+        set {
+            self.resizeAttachments(size: index)
+            self.attachments[index] = newValue
+        }
+    }
+}
+
+public class RenderPassDescriptor: Equatable {
+    public var colorAttachments = RenderPassColorAttachmentDescriptorArray()
+
+    public static func == (lhs: RenderPassDescriptor,
+                           rhs: RenderPassDescriptor) -> Bool {
+        return false
+    }
+
+    public init() {
+    }
+}
+
+public class RenderPipelineColorAttachmentDescriptor {
+    public var pixelFormat: PixelFormat = .bgra8Unorm
+}
+
+public class RenderPipelineColorAttachmentDescriptorArray {
+    private var attachments: [RenderPipelineColorAttachmentDescriptor] = []
+
+    private func resizeAttachments(size: Int) {
+        if size >= self.attachments.count {
+            self.attachments += Array(repeating: RenderPipelineColorAttachmentDescriptor(),
+                                      count: 1 + size - self.attachments.count)
+        }
+    }
+
+    public subscript(index: Int) ->  RenderPipelineColorAttachmentDescriptor! {
+        get {
+            self.resizeAttachments(size: index)
+            return self.attachments[index]
+        }
+
+        set {
+            self.resizeAttachments(size: index)
+            self.attachments[index] = newValue
+        }
+    }
+}
+
+public final class RenderPipelineDescriptor: Equatable {
+    public var vertexFunction: Function? = nil
+    public var fragmentFunction: Function? = nil
+    public var colorAttachments = RenderPipelineColorAttachmentDescriptorArray()
+
+    public static func == (lhs: RenderPipelineDescriptor,
+                           rhs: RenderPipelineDescriptor) -> Bool {
+        return false
     }
 
     public init() {

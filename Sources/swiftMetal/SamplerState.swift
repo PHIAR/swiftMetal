@@ -1,2 +1,2 @@
-public protocol SamplerState {
+public protocol SamplerState: class {
 }

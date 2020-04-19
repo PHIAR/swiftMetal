@@ -25,12 +25,12 @@ public protocol CommandBuffer {
 
     func makeRenderCommandEncoder(descriptor: RenderPassDescriptor) -> RenderCommandEncoder?
 
-    func present(drawable: Drawable)
+    func present(_ drawable: Drawable)
 
-    func present(drawable: Drawable,
+    func present(_ drawable: Drawable,
                  afterMinimumDuration: CFTimeInterval)
 
-    func present(drawable: Drawable,
+    func present(_ drawable: Drawable,
                  atTime: CFTimeInterval)
 
     func waitUntilCompleted()

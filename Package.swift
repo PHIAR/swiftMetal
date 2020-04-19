@@ -27,6 +27,19 @@ let swiftMetalTestTarget = Target.testTarget(name: "swiftMetalTests",
 
 targets.append(swiftMetalTarget)
 targets.append(swiftMetalTestTarget)
+
+// MARK - swiftMetalDispatch
+
+let swiftMetalDispatch = Target.target(name: "swiftMetalDispatch",
+                                       dependencies: [
+    "simdFilament",
+    "Metal",
+])
+
+targets.append(swiftMetalDispatch)
+
+// MARK - Package configuration
+
 products.append(.library(name: "Metal",
                          type: .dynamic,
                          targets: [
@@ -37,6 +50,8 @@ let package = Package(name: "swiftMetal",
                       platforms: platforms,
                       products: products,
                       dependencies: [
+    .package(url: "https://github.com/PHIAR/simdFilament.git",
+             .branch("master")),
     .package(url: "https://github.com/PHIAR/swiftVulkan.git",
              .branch("master")),
 ],

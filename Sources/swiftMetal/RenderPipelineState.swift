@@ -1,2 +1,2 @@
-public protocol RenderPipelineState {
+public protocol RenderPipelineState: class {
 }

@@ -77,14 +77,14 @@ internal class VkMetalCommandBuffer: VkMetalObject,
         return VkMetalRenderCommandEncoder(commandBuffer: self)
     }
 
-    public func present(drawable: Drawable) {
+    public func present(_ drawable: Drawable) {
     }
 
-    public func present(drawable: Drawable,
+    public func present(_ drawable: Drawable,
                         afterMinimumDuration: CFTimeInterval) {
     }
 
-    public func present(drawable: Drawable,
+    public func present(_ drawable: Drawable,
                         atTime: CFTimeInterval) {
     }
 
