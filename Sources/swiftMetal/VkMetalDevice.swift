@@ -52,6 +52,12 @@ internal final class VkMetalDevice: Device {
         return Int(limits.maxStorageBufferRange)
     }
 
+    public var maxThreadgroupMemoryLength: Int {
+        let limits = self.physicalDevice.getPhysicalDeviceProperties().limits
+
+        return Int(limits.maxComputeWorkGroupInvocations)
+    }
+
     public var maxThreadsPerThreadgroup: Size {
         let limits = self.physicalDevice.getPhysicalDeviceProperties().limits
 

@@ -8,6 +8,7 @@ public protocol Device {
     var registryID: UInt64 { get }
 
     var maxBufferLength: Int { get }
+    var maxThreadgroupMemoryLength: Int { get }
     var maxThreadsPerThreadgroup: Size { get }
 
     func makeBuffer(length: Int,
