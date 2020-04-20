@@ -1,3 +1,5 @@
+import MetalProtocols
+
 internal final class VkMetalComputeCommandEncoder: VkMetalCommandEncoder,
                                                    ComputeCommandEncoder {
     var vkComputePipelineState: VkMetalComputePipelineState? = nil

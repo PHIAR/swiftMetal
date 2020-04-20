@@ -1,3 +1,5 @@
+import MetalProtocols
+
 internal final class VkMetalComputePipelineState: ComputePipelineState {
     internal let function: VkMetalFunction
 

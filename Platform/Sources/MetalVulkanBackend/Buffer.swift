@@ -1,4 +1,5 @@
 import Foundation
+import MetalProtocols
 
 internal final class VkMetalBuffer: VkMetalResource,
                                     Buffer {

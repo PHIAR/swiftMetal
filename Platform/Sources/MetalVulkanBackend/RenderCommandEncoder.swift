@@ -1,3 +1,5 @@
+import MetalProtocols
+
 internal final class VkMetalRenderCommandEncoder: VkMetalCommandEncoder,
                                                   RenderCommandEncoder {
     public func setBlendColor(red: Float,

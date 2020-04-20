@@ -1,3 +1,5 @@
+import MetalProtocols
+
 internal final class VkMetalFunction: Function {
     internal required init() {
     }

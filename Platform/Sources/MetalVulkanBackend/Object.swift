@@ -1,3 +1,5 @@
+import MetalProtocols
+
 public protocol VkMetalObjectInterface {
     var label: String? { get nonmutating set }
 }

@@ -1,5 +1,6 @@
 import swiftVulkan
 import Foundation
+import MetalProtocols
 
 internal func MetalCopyAllDevices() -> [Device] {
     guard let device = MetalCreateSystemDefaultDevice() else {

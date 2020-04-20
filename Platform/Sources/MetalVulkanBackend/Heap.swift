@@ -1,3 +1,5 @@
+import MetalProtocols
+
 internal final class VkMetalHeap: VkMetalObject,
                                   Heap {
     private let descriptor: HeapDescriptor

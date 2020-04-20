@@ -1,3 +1,5 @@
+import MetalProtocols
+
 internal final class VkMetalTexture: VkMetalResource,
                                      Texture {
     public override var description: String {

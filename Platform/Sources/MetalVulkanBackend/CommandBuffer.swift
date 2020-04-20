@@ -1,4 +1,5 @@
 import Dispatch
+import MetalProtocols
 
 internal class VkMetalCommandBuffer: VkMetalObject,
                                      CommandBuffer {

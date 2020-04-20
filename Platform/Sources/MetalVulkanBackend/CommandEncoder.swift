@@ -1,3 +1,5 @@
+import MetalProtocols
+
 internal class VkMetalCommandEncoder: VkMetalObject,
                                       CommandEncoder {
     internal let commandBuffer: VkMetalCommandBuffer

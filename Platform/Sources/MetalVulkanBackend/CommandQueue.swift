@@ -1,4 +1,5 @@
 import Dispatch
+import MetalProtocols
 
 internal final class VkMetalCommandQueue: VkMetalObject,
                                           CommandQueue {

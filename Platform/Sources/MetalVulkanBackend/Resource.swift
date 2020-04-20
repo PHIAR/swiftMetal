@@ -1,3 +1,5 @@
+import MetalProtocols
+
 internal class VkMetalResource: VkMetalObject,
                                 Resource {
     public var allocatedSize: Int {

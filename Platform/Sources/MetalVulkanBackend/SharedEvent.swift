@@ -1,3 +1,5 @@
+import MetalProtocols
+
 internal final class VkMetalSharedEvent: VkMetalEvent,
                                          SharedEvent {
     public var signaledValue: UInt64 {

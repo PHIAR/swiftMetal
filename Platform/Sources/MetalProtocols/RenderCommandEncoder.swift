@@ -3,7 +3,7 @@ public protocol RenderCommandEncoder: CommandEncoder {
                        green: Float,
                        blue: Float,
                        alpha: Float)
-    func setCullMode(_ cullMode: MTLCullMode)
+    func setCullMode(_ cullMode: CullMode)
     func setDepthBias(_ depthBias: Float,
                       slopeScale: Float,
                       clamp: Float)

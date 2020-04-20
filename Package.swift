@@ -15,41 +15,29 @@ var targets: [Target] = []
 
 // MARK - swiftMetal
 
-let swiftMetalTarget = Target.target(name: "Metal",
-                                     dependencies: [
-    "swiftVulkan",
-],
-                                     path: "Sources/swiftMetal")
+let swiftMetal = Target.target(name: "swiftMetal",
+                               dependencies: [
+    "simdFilament",
+    .product(name: "Metal",
+             package: "Platform-Metal"),
+])
+
 let swiftMetalTestTarget = Target.testTarget(name: "swiftMetalTests",
                                              dependencies: [
-    "Metal",
+    "swiftMetal",
+    .product(name: "Metal",
+             package: "Platform-Metal"),
 ])
 
-targets.append(swiftMetalTarget)
+targets.append(swiftMetal)
 targets.append(swiftMetalTestTarget)
-
-// MARK - swiftMetalDispatch
-
-let swiftMetalDispatch = Target.target(name: "swiftMetalDispatch",
-                                       dependencies: [
-    "simdFilament",
-    "Metal",
-])
-
-targets.append(swiftMetalDispatch)
 
 // MARK - Package configuration
 
-products.append(.library(name: "Metal",
+products.append(.library(name: "swiftMetal",
                          type: .dynamic,
                          targets: [
-    "Metal",
-]))
-
-products.append(.library(name: "swiftMetalDispatch",
-                         type: .dynamic,
-                         targets: [
-    "swiftMetalDispatch",
+    "swiftMetal",
 ]))
 
 let package = Package(name: "swiftMetal",
@@ -58,8 +46,8 @@ let package = Package(name: "swiftMetal",
                       dependencies: [
     .package(url: "https://github.com/PHIAR/simdFilament.git",
              .branch("master")),
-    .package(url: "https://github.com/PHIAR/swiftVulkan.git",
-             .branch("master")),
+    .package(name: "Platform-Metal",
+             path: "Platform"),
 ],
                       targets: targets)
 
