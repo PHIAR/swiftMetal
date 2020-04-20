@@ -19,14 +19,14 @@ let swiftMetal = Target.target(name: "swiftMetal",
                                dependencies: [
     "simdFilament",
     .product(name: "Metal",
-             package: "Platform-Metal"),
+             package: "swiftMetalPlatform")
 ])
 
 let swiftMetalTestTarget = Target.testTarget(name: "swiftMetalTests",
                                              dependencies: [
     "swiftMetal",
     .product(name: "Metal",
-             package: "Platform-Metal"),
+             package: "swiftMetalPlatform")
 ])
 
 targets.append(swiftMetal)
@@ -46,8 +46,8 @@ let package = Package(name: "swiftMetal",
                       dependencies: [
     .package(url: "https://github.com/PHIAR/simdFilament.git",
              .branch("master")),
-    .package(name: "Platform-Metal",
-             path: "Platform"),
+    .package(url: "https://github.com/PHIAR/swiftMetalPlatform.git",
+             .branch("master")),
 ],
                       targets: targets)
 
