@@ -1,3 +1,4 @@
+import swiftMetalShaders
 import Foundation
 import Metal
 
@@ -130,7 +131,7 @@ open class MetalDevice {
         contextHeapDescriptor.size = MetalDevice.contextHeapSize
         contextHeapDescriptor.storageMode = .shared
 
-        let library = try! device.makeDefaultLibrary(bundle: Bundle(for: MetalDevice.self))
+        let library = try! device.makeDefaultLibrary(bundle: Bundle.swiftMetalShadersBundle)
         let testLimitsFunction = library.makeFunction(name: "testLimits")!
         let testLimitsComputePipelineState = try! device.makeComputePipelineState(function: testLimitsFunction)
         let blitKernelVertexFunction = library.makeFunction(name: "blitKernelVertexFunction")

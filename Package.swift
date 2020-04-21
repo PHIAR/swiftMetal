@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:999.0
 
 import PackageDescription
 
@@ -18,8 +18,17 @@ var targets: [Target] = []
 let swiftMetal = Target.target(name: "swiftMetal",
                                dependencies: [
     "simdFilament",
+    "swiftMetalShaders",
     .product(name: "Metal",
              package: "swiftMetalPlatform")
+])
+
+let swiftMetalShaders = Target.target(name: "swiftMetalShaders",
+                                      exclude: [
+    "glsl",
+],
+                                      resources: [
+    .copy("spirv"),
 ])
 
 let swiftMetalTestTarget = Target.testTarget(name: "swiftMetalTests",
@@ -30,6 +39,7 @@ let swiftMetalTestTarget = Target.testTarget(name: "swiftMetalTests",
 ])
 
 targets.append(swiftMetal)
+targets.append(swiftMetalShaders)
 targets.append(swiftMetalTestTarget)
 
 // MARK - Package configuration
