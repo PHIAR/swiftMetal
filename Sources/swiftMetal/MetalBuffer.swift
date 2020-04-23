@@ -15,15 +15,19 @@ open class MetalBuffer: MetalResource {
             return nil
         }
 
+        let _hostPtr = hostPtr ?? buffer.contents()
+
         self.init(metalDevice: metalDevice,
                   buffer: buffer,
-                  hostPtr: hostPtr)
+                  hostPtr: _hostPtr)
     }
 
     public required init(metalDevice: MetalDevice,
                          buffer: MTLBuffer,
                          hostPtr: UnsafeMutableRawPointer? = nil) {
-        self.hostPtr = hostPtr!// == nil ? buffer.contents() : hostPtr!
+        let _hostPtr = hostPtr ?? buffer.contents()
+
+        self.hostPtr = _hostPtr
         self.buffer = buffer
         super.init(metalDevice: metalDevice)
     }
