@@ -15,8 +15,8 @@ open class MetalCompilerSession {
         return self.metalSource
     }
 
-    public func getMetalLibrary(device: MTLDevice,
-                                preprocessorMacros: [String : NSObject]? = nil) -> MTLLibrary? {
+    open func getMetalLibrary(device: MTLDevice,
+                              preprocessorMacros: [String : NSObject]? = nil) -> MTLLibrary? {
         guard let metalSource = self.metalSource else {
             return nil
         }
