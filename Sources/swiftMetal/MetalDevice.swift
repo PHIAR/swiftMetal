@@ -134,12 +134,12 @@ open class MetalDevice {
         let library = try! device.makeDefaultLibrary(bundle: Bundle.swiftMetalShadersBundle)
         let testLimitsFunction = library.makeFunction(name: "testLimits")!
         let testLimitsComputePipelineState = try! device.makeComputePipelineState(function: testLimitsFunction)
-        let blitKernelVertexFunction = library.makeFunction(name: "blitKernelVertexFunction")
-        let blitKernelFragmentFunction = library.makeFunction(name: "blitKernelFragmentFunction")
+        let blitVertexFunction = library.makeFunction(name: "blitVertexShader")
+        let blitFragmentFunction = library.makeFunction(name: "blitFragmentShader")
         let blitRenderPipelineDescriptor = MTLRenderPipelineDescriptor()
 
-        blitRenderPipelineDescriptor.vertexFunction = blitKernelVertexFunction
-        blitRenderPipelineDescriptor.fragmentFunction = blitKernelFragmentFunction
+        blitRenderPipelineDescriptor.vertexFunction = blitVertexFunction
+        blitRenderPipelineDescriptor.fragmentFunction = blitFragmentFunction
 
         if let colorAttachment = blitRenderPipelineDescriptor.colorAttachments[0] {
             colorAttachment.pixelFormat = .bgra8Unorm
