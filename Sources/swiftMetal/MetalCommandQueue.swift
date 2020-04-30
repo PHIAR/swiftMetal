@@ -826,9 +826,9 @@ open class MetalCommandQueue {
     }
 
     public final func finishWithCapture() {
-        let captureManager = MTLCaptureManager.shared()
+        let captureManager = CaptureManager.shared()
         let captureScope = captureManager.makeCaptureScope(commandQueue: self.commandQueue)
-        let descriptor = MTLCaptureDescriptor()
+        let descriptor = CaptureDescriptor()
 
         descriptor.captureObject = captureScope
         try! captureManager.startCapture(with: descriptor)
@@ -853,8 +853,8 @@ open class MetalCommandQueue {
     }
 }
 
-extension MTLViewport: Equatable {
-    public static func == (lhs: MTLViewport, rhs: MTLViewport) -> Bool {
+extension Viewport: Equatable {
+    public static func == (lhs: Viewport, rhs: Viewport) -> Bool {
         return (lhs.originX == rhs.originX) &&
                (lhs.originY == rhs.originY) &&
                (lhs.width == rhs.width) &&
