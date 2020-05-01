@@ -1,7 +1,6 @@
 # swiftMetal
 
-A convenience API for Metal and GCD written in Swift. For the reference Metal implementation
-please refer to the `swiftMetalPlatform` project.
+A convenience API for Metal and GCD written in Swift. For the reference Metal implementation please refer to the `swiftMetalPlatform` project.
 
 Note this is a proof of concept implementation and is not complete.
 
