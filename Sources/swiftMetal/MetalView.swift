@@ -23,16 +23,8 @@ public typealias CGContext = OpaquePointer
 public typealias Layer = VisualLayer
 
 open class MetalLayer: Layer {
-    public var device: Device? = nil
     public var delegate: MetalLayerDelegate? = nil
-    public var pixelFormat: PixelFormat = .bgra8Unorm
-    public var maximumDrawableCount = 2
     public var framebufferOnly = false
-    public var drawableSize = Size()
-
-    open func nextDrawable() -> Drawable? {
-        return nil
-    }
 }
 
 public protocol MetalLayerDelegate {
