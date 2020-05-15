@@ -49,6 +49,10 @@ open class MetalProgram {
         return false
     }
 
+    public func getData() -> Data? {
+        return self.library?.getData()
+    }
+
     public final func setReleaseCallback(_ callback: @escaping () -> Void) {
         self.releaseCallback = callback
     }
