@@ -13,6 +13,7 @@ open class MetalProgram {
     public init?(metalContext: MetalContext,
                  library: MTLLibrary? = nil) {
         self.metalContext = metalContext
+        self.library = library
     }
 
     deinit {
