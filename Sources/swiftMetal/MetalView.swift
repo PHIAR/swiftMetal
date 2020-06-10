@@ -289,7 +289,7 @@ private let PHIAR_METAL_USE_CA_DISPLAY_LINK = false
         self.setupView()
     }
 
-#if os(iOS) || os(tvOS)
+#if os(iOS) || os(tvOS) || os(Android) || os(Linux)
     @objc public override init(frame frameRect: CGRect) {
         self.metalContext = MetalView.defaultMetalContext
         self.metalCommandQueue = metalContext.commandQueue()
@@ -305,22 +305,32 @@ private let PHIAR_METAL_USE_CA_DISPLAY_LINK = false
     }
 #endif
 
-#if os(iOS) || os(tvOS) || os(macOS)
     public init?(coder: NSCoder,
                  metalContext: MetalContext) {
         self.metalContext = metalContext
         self.metalCommandQueue = metalContext.commandQueue()
+
+    #if os(iOS) || os(tvOS) || os(macOS)
         super.init(coder: coder)
+    #else
+        super.init(frame: .zero)
+    #endif
+
         self.setupView()
     }
 
     @objc public required init?(coder: NSCoder) {
         self.metalContext = MetalView.defaultMetalContext
         self.metalCommandQueue = MetalCommandQueue(metalContext: metalContext)!
+
+    #if os(iOS) || os(tvOS) || os(macOS)
         super.init(coder: coder)
+    #else
+        super.init(frame: .zero)
+    #endif
+
         self.setupView()
     }
-#endif
 
     deinit {
     #if os(iOS) || os(tvOS)
